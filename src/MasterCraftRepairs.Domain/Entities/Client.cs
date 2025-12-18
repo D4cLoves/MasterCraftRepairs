@@ -11,7 +11,10 @@ public class Client
     public Address Address { get; private set; }
     public DateOnly Birthday { get; private set; }
 
-    private Client() { } // For EF Core
+    private readonly List<Order> _orders = new();
+    public IReadOnlyCollection<Order> Orders => _orders.AsReadOnly();
+
+    private Client() { }
 
     public Client(string firstName, string lastName, string phone, 
         string passport, string address, DateOnly birthday)

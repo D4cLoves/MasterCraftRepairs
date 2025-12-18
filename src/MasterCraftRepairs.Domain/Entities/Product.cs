@@ -13,7 +13,12 @@ public class Product
     public Brand BrandName { get; private set; }
     public Model ModelName { get; private set; }
 
-    private Product() { } // For EF Core
+    public Category Category { get; private set; } = null!;
+
+    private readonly List<Order> _orders = new();
+    public IReadOnlyCollection<Order> Orders => _orders.AsReadOnly();
+
+    private Product() { } 
 
     public Product(Guid categoryId, string serialNumber, decimal price, DateOnly realeseYear, string brandName,
         string modelName)

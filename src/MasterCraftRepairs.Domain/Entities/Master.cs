@@ -9,8 +9,11 @@ public class Master
     public PhoneNumber Phone { get; private set; }
     public PassportNumber Passport { get; private set; }
     public DateOnly Birthday { get; private set; }
+
+    private readonly List<Order> _orders = new();
+    public IReadOnlyCollection<Order> Orders => _orders.AsReadOnly();
     
-    private Master() { } // For EF Core
+    private Master() { } 
     
     public Master(string firstName, string lastName, string phone, 
         string passport, DateOnly birthday)
