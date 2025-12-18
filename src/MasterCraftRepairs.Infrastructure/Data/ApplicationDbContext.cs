@@ -1,9 +1,11 @@
 ﻿using MasterCraftRepairs.Domain.Entities;
+using MasterCraftRepairs.Infrastructure.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace MasterCraftRepairs.Infrastructure.Data;
 
-public class ApplicationDbContext : DbContext
+public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 {
     public DbSet<Client> Clients { get; set; }
     public DbSet<Master> Masters { get; set; }
