@@ -11,6 +11,10 @@ public class Client
     public Address Address { get; private set; }
     public DateOnly Birthday { get; private set; }
 
+    // Навигационное свойство - заказы клиента
+    private readonly List<Order> _orders = new();
+    public IReadOnlyCollection<Order> Orders => _orders.AsReadOnly();
+
     private Client() { } // For EF Core
 
     public Client(string firstName, string lastName, string phone, 

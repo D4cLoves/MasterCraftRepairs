@@ -10,6 +10,11 @@ public abstract class Order
      public Guid ProductId { get; private set; }
      public Guid MasterId { get; private set; }
      public Guid ClientId { get; private set; }
+
+     // Навигационные свойства
+     public Product Product { get; private set; } = null!;
+     public Master Master { get; private set; } = null!;
+     public Client Client { get; private set; } = null!;
      
      public DateTime StartDate { get; protected set; }
      public DateTime? EndDate { get; protected set; }

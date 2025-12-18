@@ -9,6 +9,10 @@ public class Master
     public PhoneNumber Phone { get; private set; }
     public PassportNumber Passport { get; private set; }
     public DateOnly Birthday { get; private set; }
+
+    // Навигационное свойство - заказы мастера
+    private readonly List<Order> _orders = new();
+    public IReadOnlyCollection<Order> Orders => _orders.AsReadOnly();
     
     private Master() { } // For EF Core
     

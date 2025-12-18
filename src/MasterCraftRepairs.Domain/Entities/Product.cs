@@ -13,6 +13,13 @@ public class Product
     public Brand BrandName { get; private set; }
     public Model ModelName { get; private set; }
 
+    // Навигационное свойство - категория товара
+    public Category Category { get; private set; } = null!;
+
+    // Навигационное свойство - заказы по этому товару
+    private readonly List<Order> _orders = new();
+    public IReadOnlyCollection<Order> Orders => _orders.AsReadOnly();
+
     private Product() { } // For EF Core
 
     public Product(Guid categoryId, string serialNumber, decimal price, DateOnly realeseYear, string brandName,

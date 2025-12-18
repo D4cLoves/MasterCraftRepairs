@@ -6,6 +6,10 @@ public class Category
 {
     public Guid Id { get; private set; } = Guid.NewGuid();
     public CategoryName Name { get; private set; } = null!;
+
+    // Навигационное свойство - товары категории
+    private readonly List<Product> _products = new();
+    public IReadOnlyCollection<Product> Products => _products.AsReadOnly();
     
     private Category() { } // For EF Core
     
