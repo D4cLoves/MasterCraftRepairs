@@ -11,7 +11,6 @@ public abstract class Order
      public Guid MasterId { get; private set; }
      public Guid ClientId { get; private set; }
 
-     // Навигационные свойства
      public Product Product { get; private set; } = null!;
      public Master Master { get; private set; } = null!;
      public Client Client { get; private set; } = null!;
@@ -21,7 +20,7 @@ public abstract class Order
      
      public Money Price { get; private set; }
 
-     protected Order() { } // For EF Core
+     protected Order() { } 
 
      protected Order(Guid productId, Guid masterId, Guid clientId, decimal price)
      {
