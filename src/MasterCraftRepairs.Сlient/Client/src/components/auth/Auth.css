@@ -1,0 +1,225 @@
+/* Классический корпоративный стиль */
+.auth-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: calc(100vh - 60px);
+	padding: 2rem;
+	background-color: #f5f5f5;
+}
+
+.auth-card {
+	background: #ffffff;
+	border: 1px solid #e0e0e0;
+	border-radius: 4px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	padding: 2.5rem;
+	width: 100%;
+	max-width: 600px;
+}
+
+.auth-title {
+	font-size: 1.75rem;
+	font-weight: 600;
+	margin-bottom: 2rem;
+	text-align: center;
+	color: #333333;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.auth-form {
+	display: flex;
+	flex-direction: column;
+	gap: 1.25rem;
+}
+
+.form-row {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 1rem;
+}
+
+@media (max-width: 600px) {
+	.form-row {
+		grid-template-columns: 1fr;
+	}
+}
+
+.form-group {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.form-group label {
+	font-weight: 500;
+	color: #333333;
+	font-size: 0.9rem;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.form-group input {
+	width: 100%;
+	padding: 0.75rem;
+	border: 1px solid #d0d0d0;
+	border-radius: 4px;
+	background: #ffffff;
+	font-size: 1rem;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+	transition: border-color 0.2s, box-shadow 0.2s;
+	box-sizing: border-box;
+}
+
+.form-group input:focus {
+	outline: none;
+	border-color: #0066cc;
+	box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+}
+
+.form-group input::placeholder {
+	color: #999999;
+}
+
+.form-group input.input-error {
+	border-color: #dc3545;
+}
+
+.form-group input.input-error:focus {
+	border-color: #dc3545;
+	box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+}
+
+.error-message {
+	color: #dc3545;
+	font-size: 0.875rem;
+	margin-top: 0.25rem;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.auth-button {
+	width: 100%;
+	padding: 0.875rem 1.5rem;
+	background-color: #0066cc;
+	color: #ffffff;
+	border: 1px solid #0066cc;
+	border-radius: 4px;
+	font-size: 1rem;
+	font-weight: 500;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+	cursor: pointer;
+	transition: background-color 0.2s, border-color 0.2s;
+	margin-top: 0.5rem;
+}
+
+.auth-button:hover {
+	background-color: #0052a3;
+	border-color: #0052a3;
+}
+
+.auth-button:active {
+	background-color: #004080;
+	border-color: #004080;
+}
+
+.auth-button:disabled {
+	background-color: #cccccc;
+	border-color: #cccccc;
+	cursor: not-allowed;
+}
+
+.auth-footer {
+	margin-top: 1.5rem;
+	text-align: center;
+	font-size: 0.9rem;
+	color: #666666;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.auth-link {
+	color: #0066cc;
+	font-size: 0.9rem;
+	font-weight: 500;
+	text-decoration: none;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+	transition: color 0.2s;
+}
+
+.auth-link:hover {
+	color: #0052a3;
+	text-decoration: underline;
+}
+
+.auth-link:active {
+	color: #004080;
+}
+
+/* Темная тема */
+@media (prefers-color-scheme: dark) {
+	.auth-container {
+		background-color: #1a1a1a;
+	}
+
+	.auth-card {
+		background: #2a2a2a;
+		border-color: #404040;
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+	}
+
+	.auth-title {
+		color: rgba(255, 255, 255, 0.9);
+	}
+
+	.form-group label {
+		color: rgba(255, 255, 255, 0.87);
+	}
+
+	.form-group input {
+		background: #1a1a1a;
+		border-color: #404040;
+		color: rgba(255, 255, 255, 0.87);
+	}
+
+	.form-group input:focus {
+		border-color: #409cff;
+		box-shadow: 0 0 0 3px rgba(64, 156, 255, 0.2);
+	}
+
+	.form-group input::placeholder {
+		color: #666666;
+	}
+
+	.form-group input.input-error {
+		border-color: #ff453a;
+	}
+
+	.error-message {
+		color: #ff453a;
+	}
+
+	.auth-button {
+		background-color: #409cff;
+		border-color: #409cff;
+	}
+
+	.auth-button:hover {
+		background-color: #5aadff;
+		border-color: #5aadff;
+	}
+
+	.auth-button:active {
+		background-color: #2a8cff;
+		border-color: #2a8cff;
+	}
+
+	.auth-footer {
+		color: rgba(255, 255, 255, 0.6);
+	}
+
+	.auth-link {
+		color: #409cff;
+	}
+
+	.auth-link:hover {
+		color: #5aadff;
+	}
+}
