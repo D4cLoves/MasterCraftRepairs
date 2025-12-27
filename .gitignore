@@ -118,6 +118,17 @@ __pycache__/
 node_modules/
 npm-debug.log
 yarn-error.log
+package-lock.json
+yarn.lock
+
+# React / Vite
+dist/
+dist-ssr/
+*.local
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
 # OS
 .DS_Store
