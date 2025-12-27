@@ -1,4 +1,4 @@
-using MasterCraftRepairs.Domain.ValueObjects;
+  using MasterCraftRepairs.Domain.ValueObjects;
 
 namespace MasterCraftRepairs.Domain.Entities;
 
