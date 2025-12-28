@@ -1,14 +1,19 @@
-import { Routes, Route } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import {
 	ClientLogin,
 	ClientRegister,
 	MasterLogin,
 	MasterRegister
 } from '../components/auth';
+import { HomePage } from '../components/HomePage';
 
 export const AppRoutes = () => {
 	return (
 		<Routes>
+			<Route
+				path="/"
+				element={<HomePage />}
+			/>
 			<Route
 				path="/auth/master/login"
 				element={<MasterLogin />}
@@ -25,11 +30,6 @@ export const AppRoutes = () => {
 				path="/auth/client/register"
 				element={<ClientRegister />}
 			/>
-			<Route
-				path="/"
-				element={<MasterLogin />}
-			/>
 		</Routes>
 	);
 };
-
