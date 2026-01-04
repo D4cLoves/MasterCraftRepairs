@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Build.Tasks;
 //using MasterCraftRepairs.WebAPI.Models;
 
-
 namespace MasterCraftRepairs.WebAPI.Controllers
 {
     [Route("api/[controller]")]

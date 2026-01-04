@@ -144,6 +144,8 @@ export const MasterRegister = ({ onRegister }: MasterRegisterProps) => {
 						to="/auth/master/login"
 						className="auth-switch-link"
 					>
+
+						
 						вход
 					</Link>
 				</div>
