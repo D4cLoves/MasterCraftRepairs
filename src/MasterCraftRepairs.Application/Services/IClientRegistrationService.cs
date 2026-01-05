@@ -2,12 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MasterCraftRepairs.Application.Common.Results;
 using MasterCraftRepairs.Application.DTOs;
 
 namespace MasterCraftRepairs.Application.Services
 {
     public interface IClientRegistrationService
     {
-        Task<bool> RegisterClientAsync(RegisterClientRequestDto request);
+        Task<OperationResults> RegisterClientAsync(RegisterClientRequestDto request);
     }
 }
