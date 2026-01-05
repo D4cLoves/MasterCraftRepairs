@@ -7,8 +7,9 @@ using MasterCraftRepairs.Application.DTOs;
 
 namespace MasterCraftRepairs.Application.Services
 {
-    public interface IClientRegistrationService
+    public interface IClientService
     {
         Task<OperationResults> RegisterClientAsync(RegisterClientRequestDto request);
+        Task<OperationResults> LoginClientAsync(LoginUserDto request);
     }
 }

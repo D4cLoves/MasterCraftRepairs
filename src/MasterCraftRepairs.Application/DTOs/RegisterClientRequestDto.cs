@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MasterCraftRepairs.Application.DTOs
 {
-    public interface RegisterClientRequestDto
+    public class RegisterClientRequestDto
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

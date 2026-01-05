@@ -82,6 +82,8 @@ export const ClientRegister = () => {
 			const result = await registerClient(formData)
 			setRegistrationResult(result)
 			setIsSuccessModalOpen(true)
+			console.log('все гуд', result);
+
 		} catch (error) {
 			console.error('Registration failed:', error)
 		}

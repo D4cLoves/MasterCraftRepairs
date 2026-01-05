@@ -11,7 +11,7 @@ export const Api = {
 		return response.json()
 	},
 	AuthorizationClient: async (userData: ClientRegisterData) => {
-		const response = await fetch('http://localhost:5073/api/Auth/register', {
+		const response = await fetch('http://localhost:5073/api/Client/register', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
