@@ -14,6 +14,7 @@ export const MasterRegister = ({ onRegister }: MasterRegisterProps) => {
 		confirmPassword: ''
 	});
 	const [errors, setErrors] = useState<Record<string, string>>({});
+	const [isLoading, setIsLoading] = useState(false);
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
@@ -24,7 +25,7 @@ export const MasterRegister = ({ onRegister }: MasterRegisterProps) => {
 		}
 	};
 
-	const handleSubmit = (e: React.FormEvent) => {
+	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 
 		const newErrors: Record<string, string> = {};
@@ -52,7 +53,12 @@ export const MasterRegister = ({ onRegister }: MasterRegisterProps) => {
 		setErrors(newErrors);
 
 		if (Object.keys(newErrors).length === 0 && onRegister) {
-			onRegister(formData.email, formData.password, formData.name);
+			setIsLoading(true);
+			try {
+				await onRegister(formData.email, formData.password, formData.name);
+			} finally {
+				setIsLoading(false);
+			}
 		}
 	};
 
@@ -60,6 +66,7 @@ export const MasterRegister = ({ onRegister }: MasterRegisterProps) => {
 		<div className="auth-container">
 			<div className="auth-card">
 				<h2 className="auth-title">Регистрация мастера</h2>
+				<p className="auth-subtitle">Создайте аккаунт для работы с заказами</p>
 				<form
 					onSubmit={handleSubmit}
 					className="auth-form"
@@ -132,9 +139,10 @@ export const MasterRegister = ({ onRegister }: MasterRegisterProps) => {
 
 					<button
 						type="submit"
-						className="auth-button"
+						className={`auth-button ${isLoading ? 'loading' : ''}`}
+						disabled={isLoading}
 					>
-						Зарегистрироваться
+						{isLoading ? 'Регистрация...' : 'Зарегистрироваться'}
 					</button>
 				</form>
 
@@ -145,7 +153,7 @@ export const MasterRegister = ({ onRegister }: MasterRegisterProps) => {
 						className="auth-switch-link"
 					>
 
-						
+
 						вход
 					</Link>
 				</div>

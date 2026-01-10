@@ -12,6 +12,7 @@ export const ClientLogin = ({ onLogin }: ClientLoginProps) => {
 		password: ''
 	});
 	const [errors, setErrors] = useState<Record<string, string>>({});
+	const [isLoading, setIsLoading] = useState(false);
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
@@ -21,7 +22,7 @@ export const ClientLogin = ({ onLogin }: ClientLoginProps) => {
 		}
 	};
 
-	const handleSubmit = (e: React.FormEvent) => {
+	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 
 		const newErrors: Record<string, string> = {};
@@ -39,7 +40,12 @@ export const ClientLogin = ({ onLogin }: ClientLoginProps) => {
 		setErrors(newErrors);
 
 		if (Object.keys(newErrors).length === 0 && onLogin) {
-			onLogin(formData.email, formData.password);
+			setIsLoading(true);
+			try {
+				await onLogin(formData.email, formData.password);
+			} finally {
+				setIsLoading(false);
+			}
 		}
 	};
 
@@ -47,6 +53,7 @@ export const ClientLogin = ({ onLogin }: ClientLoginProps) => {
 		<div className="auth-container">
 			<div className="auth-card">
 				<h2 className="auth-title">Вход клиента</h2>
+				<p className="auth-subtitle">Войдите в свой аккаунт</p>
 				<form
 					onSubmit={handleSubmit}
 					className="auth-form"
@@ -87,9 +94,10 @@ export const ClientLogin = ({ onLogin }: ClientLoginProps) => {
 
 					<button
 						type="submit"
-						className="auth-button"
+						className={`auth-button ${isLoading ? 'loading' : ''}`}
+						disabled={isLoading}
 					>
-						Войти
+						{isLoading ? 'Вход...' : 'Войти'}
 					</button>
 				</form>
 

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import { z } from 'zod'
 import { Api } from '../../lib/api'
 import type { ClientRegisterData } from '../../types/auth'
@@ -45,6 +45,7 @@ export const ClientRegister = () => {
 		confirmPassword: ''
 	})
 	const [errors, setErrors] = useState<Record<string, string>>({})
+	const [isLoading, setIsLoading] = useState(false)
 	const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false)
 	const [registrationResult, setRegistrationResult] = useState<{
 		message?: string
@@ -78,58 +79,64 @@ export const ClientRegister = () => {
 			return
 		}
 		setErrors({})
+		setIsLoading(true)
 		try {
 			const result = await registerClient(formData)
 			setRegistrationResult(result)
 			setIsSuccessModalOpen(true)
-			console.log('все гуд', result);
+			console.log('все гуд', result)
 		} catch (error) {
 			console.error('Registration failed:', error)
-			const errorMessage = error instanceof Error ? error.message : 'Ошибка регистрации'
+			const errorMessage =
+				error instanceof Error ? error.message : 'Ошибка регистрации'
 			setErrors({ submit: errorMessage })
+		} finally {
+			setIsLoading(false)
 		}
 	}
 
 	return (
-		<div className="auth-container">
+		<div className="auth-container register-form-container">
 			<div className="auth-card">
 				<h2 className="auth-title">Регистрация клиента</h2>
+				<p className="auth-subtitle">Создайте аккаунт для подачи обращений</p>
 				<form
 					onSubmit={handleSubmit}
-					className="auth-form"
+					className="auth-form register-form"
 				>
-					<div className="form-group">
-						<label htmlFor="client-name">Имя</label>
-						<input
-							id="client-firstName"
-							name="firstName"
-							type="text"
-							value={formData.firstName}
-							onChange={handleChange}
-							placeholder="Введите ваше имя"
-							className={errors.firstName ? 'input-error' : ''}
-							required
-						/>
-						{errors.firstName && (
-							<div className="error-message">{errors.firstName}</div>
-						)}
-					</div>
-
-					<div className="form-group">
-						<label htmlFor="client-lastName">Фамилия</label>
-						<input
-							id="client-lastName"
-							name="lastName"
-							type="text"
-							value={formData.lastName}
-							onChange={handleChange}
-							placeholder="Введите вашу фамилию"
-							className={errors.lastName ? 'input-error' : ''}
-							required
-						/>
-						{errors.lastName && (
-							<div className="error-message">{errors.lastName}</div>
-						)}
+					<div className="form-row">
+						<div className="form-group">
+							<label htmlFor="client-firstName">Имя</label>
+							<input
+								id="client-firstName"
+								name="firstName"
+								type="text"
+								value={formData.firstName}
+								onChange={handleChange}
+								placeholder="Имя"
+								className={errors.firstName ? 'input-error' : ''}
+								required
+							/>
+							{errors.firstName && (
+								<div className="error-message">{errors.firstName}</div>
+							)}
+						</div>
+						<div className="form-group">
+							<label htmlFor="client-lastName">Фамилия</label>
+							<input
+								id="client-lastName"
+								name="lastName"
+								type="text"
+								value={formData.lastName}
+								onChange={handleChange}
+								placeholder="Фамилия"
+								className={errors.lastName ? 'input-error' : ''}
+								required
+							/>
+							{errors.lastName && (
+								<div className="error-message">{errors.lastName}</div>
+							)}
+						</div>
 					</div>
 
 					<div className="form-group">
@@ -140,7 +147,7 @@ export const ClientRegister = () => {
 							type="tel"
 							value={formData.phone}
 							onChange={handleChange}
-							placeholder="Введите ваш телефон"
+							placeholder="Телефон"
 							className={errors.phone ? 'input-error' : ''}
 							required
 						/>
@@ -157,7 +164,7 @@ export const ClientRegister = () => {
 							type="text"
 							value={formData.passport}
 							onChange={handleChange}
-							placeholder="Введите номер паспорта"
+							placeholder="Номер паспорта"
 							className={errors.passport ? 'input-error' : ''}
 							required
 						/>
@@ -174,7 +181,7 @@ export const ClientRegister = () => {
 							type="text"
 							value={formData.address}
 							onChange={handleChange}
-							placeholder="Введите ваш адрес"
+							placeholder="Адрес"
 							className={errors.address ? 'input-error' : ''}
 							required
 						/>
@@ -207,7 +214,7 @@ export const ClientRegister = () => {
 							type="email"
 							value={formData.email}
 							onChange={handleChange}
-							placeholder="Введите email"
+							placeholder="Email"
 							className={errors.email ? 'input-error' : ''}
 							required
 						/>
@@ -216,51 +223,56 @@ export const ClientRegister = () => {
 						)}
 					</div>
 
-					<div className="form-group">
-						<label htmlFor="client-password">Пароль</label>
-						<input
-							id="client-password"
-							name="password"
-							type="password"
-							value={formData.password}
-							onChange={handleChange}
-							placeholder="Создайте пароль"
-							className={errors.password ? 'input-error' : ''}
-							required
-						/>
-						{errors.password && (
-							<div className="error-message">{errors.password}</div>
-						)}
-					</div>
-
-					<div className="form-group">
-						<label htmlFor="client-confirm-password">Подтвердите пароль</label>
-						<input
-							id="client-confirm-password"
-							name="confirmPassword"
-							type="password"
-							value={formData.confirmPassword}
-							onChange={handleChange}
-							placeholder="Повторите пароль"
-							className={errors.confirmPassword ? 'input-error' : ''}
-							required
-						/>
-						{errors.confirmPassword && (
-							<div className="error-message">{errors.confirmPassword}</div>
-						)}
+					<div className="form-row">
+						<div className="form-group">
+							<label htmlFor="client-password">Пароль</label>
+							<input
+								id="client-password"
+								name="password"
+								type="password"
+								value={formData.password}
+								onChange={handleChange}
+								placeholder="Пароль"
+								className={errors.password ? 'input-error' : ''}
+								required
+							/>
+							{errors.password && (
+								<div className="error-message">{errors.password}</div>
+							)}
+						</div>
+						<div className="form-group">
+							<label htmlFor="client-confirm-password">Подтверждение</label>
+							<input
+								id="client-confirm-password"
+								name="confirmPassword"
+								type="password"
+								value={formData.confirmPassword}
+								onChange={handleChange}
+								placeholder="Подтверждение"
+								className={errors.confirmPassword ? 'input-error' : ''}
+								required
+							/>
+							{errors.confirmPassword && (
+								<div className="error-message">{errors.confirmPassword}</div>
+							)}
+						</div>
 					</div>
 
 					{errors.submit && (
-						<div className="error-message" style={{ marginBottom: '1rem' }}>
+						<div
+							className="error-message"
+							style={{ marginBottom: '1rem' }}
+						>
 							{errors.submit}
 						</div>
 					)}
 
 					<button
 						type="submit"
-						className="auth-button"
+						className={`auth-button ${isLoading ? 'loading' : ''}`}
+						disabled={isLoading}
 					>
-						Зарегистрироваться
+						{isLoading ? 'Регистрация...' : 'Зарегистрироваться'}
 					</button>
 				</form>
 

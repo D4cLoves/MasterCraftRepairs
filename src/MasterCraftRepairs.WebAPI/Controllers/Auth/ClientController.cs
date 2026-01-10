@@ -55,9 +55,11 @@ namespace MasterCraftRepairs.WebAPI.Controllers.Authorization
             }
 
             var result = await _clientService.LoginClientAsync(request);
-
+            
             if (result.Succeeded)
             {
+                HttpContext.Response.Cookies.Append("ZaxarCrumbleCookie", result.Token);
+                
                 return Ok(new { token = result.Token, message = "Вы успешно вошли в аккаунт" });
             }
 

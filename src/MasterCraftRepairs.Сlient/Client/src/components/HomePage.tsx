@@ -1,36 +1,16 @@
-import { Link } from 'react-router-dom';
+import './HomePage.css'
 
 export const HomePage = () => {
 	return (
 		<div className="homepage">
-			<div className="hero-container">
-				<div className="hero-content">
-					<h1 className="hero-title">MasterCraftRepairs</h1>
-					<p className="hero-description">
-						Профессиональный сервис ремонта техники с удобной системой
-						отслеживания заказов.
-					</p>
-					<p className="hero-description">
-						Получайте актуальную информацию о статусе ремонта в режиме реального
-						времени.
-					</p>
-
-					<div className="cta-section">
-						<Link
-							to="/auth/master/register"
-							className="ios-button"
-						>
-							Стать мастером
-						</Link>
-						<Link
-							to="/auth/client/register"
-							className="ios-button"
-						>
-							Стать клиентом
-						</Link>
-					</div>
-				</div>
-			</div>
+			<img
+				src="https://wallpaperaccess.com/full/258875.jpg"
+				alt="Anime character"
+				className="homepage-image"
+				onError={(e) => {
+					e.currentTarget.src = 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=1200&q=80'
+				}}
+			/>
 		</div>
-	);
-};
+	)
+}
