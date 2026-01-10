@@ -24,7 +24,7 @@ const registerSchema = z
 		address: z.string().min(1, 'Адрес обязателен для заполнения'),
 		birthday: z.string().min(1, 'Дата рождения обязательна для заполнения'),
 		email: z.string().email('Введите корректный email'),
-		password: z.string().min(8, 'Пароль должен содержать минимум 8 символов'),
+		password: z.string().min(6, 'Пароль должен содержать минимум 6 символов'),
 		confirmPassword: z.string().min(1, 'Подтверждение пароля обязательно')
 	})
 	.refine(data => data.password === data.confirmPassword, {
@@ -83,9 +83,10 @@ export const ClientRegister = () => {
 			setRegistrationResult(result)
 			setIsSuccessModalOpen(true)
 			console.log('все гуд', result);
-
 		} catch (error) {
 			console.error('Registration failed:', error)
+			const errorMessage = error instanceof Error ? error.message : 'Ошибка регистрации'
+			setErrors({ submit: errorMessage })
 		}
 	}
 
@@ -248,6 +249,12 @@ export const ClientRegister = () => {
 							<div className="error-message">{errors.confirmPassword}</div>
 						)}
 					</div>
+
+					{errors.submit && (
+						<div className="error-message" style={{ marginBottom: '1rem' }}>
+							{errors.submit}
+						</div>
+					)}
 
 					<button
 						type="submit"

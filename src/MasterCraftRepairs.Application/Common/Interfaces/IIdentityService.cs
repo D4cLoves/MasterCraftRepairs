@@ -9,6 +9,7 @@ namespace MasterCraftRepairs.Application.Common.Interfaces
 {
     public interface IIdentityService
     {
-        Task<OperationResult> CreateClientAsync(Client client, string password);
+        Task<OperationResults> CreateClientAsync(Client client, string password, string email);
+        Task<OperationResults> LoginClientAsync(string email, string password);
     }
 }

@@ -4,6 +4,10 @@
     <ProjectReference Include="..\MasterCraftRepairs.Domain\MasterCraftRepairs.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="System.ClientModel" Version="1.5.1" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>

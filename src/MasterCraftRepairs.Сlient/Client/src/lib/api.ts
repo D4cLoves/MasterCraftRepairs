@@ -18,7 +18,11 @@ export const Api = {
 			},
 			body: JSON.stringify(userData)
 		})
-		if (!response.ok) throw new Error('Failed registration')
+		if (!response.ok) {
+			const errorData = await response.json().catch(() => ({ errors: ['Неизвестная ошибка'] }))
+			const errorMessage = errorData.errors?.join(', ') || errorData.message || 'Ошибка регистрации'
+			throw new Error(errorMessage)
+		}
 		return response.json()
 	}
 }
