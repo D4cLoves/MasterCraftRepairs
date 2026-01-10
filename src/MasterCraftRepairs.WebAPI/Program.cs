@@ -44,7 +44,7 @@ builder.Services.Configure<JwtOptions>(
 
 builder.Services.AddScoped<IClientService, ClientService>();
 
-builder.Services.AddScoped<IIdentityService, IdentityService>();
+builder.Services.AddScoped<IIdentityClientService, IdentityClientService>();
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
 builder.Services.AddScoped<IJwtProvider, JwtProvider>();
 

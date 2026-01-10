@@ -21,4 +21,8 @@
     <ProjectReference Include="..\MasterCraftRepairs.Infrastructure\MasterCraftRepairs.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Middleware\" />
+  </ItemGroup>
+
 </Project>

@@ -7,7 +7,7 @@ using MasterCraftRepairs.Domain.Entities;
 
 namespace MasterCraftRepairs.Application.Common.Interfaces
 {
-    public interface IIdentityService
+    public interface IIdentityClientService
     {
         Task<OperationResults> CreateClientAsync(Client client, string password, string email);
         Task<OperationResults> LoginClientAsync(string email, string password);

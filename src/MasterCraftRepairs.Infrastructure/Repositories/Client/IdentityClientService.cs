@@ -10,12 +10,12 @@ using Microsoft.AspNetCore.Identity;
 
 namespace MasterCraftRepairs.Infrastructure.Repositories
 {
-    public class IdentityService : IIdentityService
+    public class IdentityClientService : IIdentityClientService
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IJwtProvider _jwtProvider;
 
-        public IdentityService(UserManager<ApplicationUser> userManager, IJwtProvider jwtProvider)
+        public IdentityClientService(UserManager<ApplicationUser> userManager, IJwtProvider jwtProvider)
         {
             _userManager = userManager;
             _jwtProvider = jwtProvider;
