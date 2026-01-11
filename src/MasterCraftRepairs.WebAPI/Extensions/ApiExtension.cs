@@ -9,8 +9,11 @@ namespace MasterCraftRepairs.WebAPI.Extensions;
 
 public class ApiExtension
 {
-    public static void AddApiAuthentication(IServiceCollection services, IOptions<JwtOptions> jwtOptions)
+    public static void AddApiAuthentication(IServiceCollection services, IConfiguration configuration)
     {
+        var jwtOptions = new JwtOptions();
+        configuration.GetSection("JwtOptions").Bind(jwtOptions);
+        
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
             {
@@ -20,7 +23,7 @@ public class ApiExtension
                     ValidateAudience = true,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.Value.SecretKey)),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SecretKey)),
                 };
 
                 options.Events = new JwtBearerEvents

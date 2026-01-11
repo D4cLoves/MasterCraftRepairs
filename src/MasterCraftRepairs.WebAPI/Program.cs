@@ -4,6 +4,7 @@ using MasterCraftRepairs.Infrastructure;
 using MasterCraftRepairs.Infrastructure.Data;
 using MasterCraftRepairs.Infrastructure.Identity;
 using MasterCraftRepairs.Infrastructure.Repositories;
+using MasterCraftRepairs.WebAPI.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,7 +26,6 @@ builder.Services.AddControllers()
 builder.Services
     .AddIdentity<ApplicationUser, IdentityRole>(options =>
     {
-        // Настройка требований к паролю
         options.Password.RequireDigit = false;
         options.Password.RequireLowercase = false;
         options.Password.RequireUppercase = false;
@@ -33,7 +33,6 @@ builder.Services
         options.Password.RequiredLength = 6;
         options.Password.RequiredUniqueChars = 0;
 
-        // Настройка пользователя
         options.User.RequireUniqueEmail = true;
     })
     .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -41,6 +40,8 @@ builder.Services
 
 builder.Services.Configure<JwtOptions>(
     builder.Configuration.GetSection("JwtOptions"));
+
+ApiExtension.AddApiAuthentication(builder.Services, builder.Configuration);
 
 builder.Services.AddScoped<IClientService, ClientService>();
 
@@ -89,10 +90,8 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-// CORS должен быть до HTTPS редиректа, чтобы обрабатывать preflight запросы
 app.UseCors("cors");
 
-// Отключаем HTTPS редирект в Development для упрощения разработки
 if (!app.Environment.IsDevelopment())
 {
     app.UseHttpsRedirection();

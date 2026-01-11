@@ -1,12 +1,11 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { Api } from '../../lib/api';
+import type { LoginData } from '../../types/auth';
 import './Auth.css';
 
-interface ClientLoginProps {
-	onLogin?: (email: string, password: string) => void;
-}
-
-export const ClientLogin = ({ onLogin }: ClientLoginProps) => {
+export const ClientLogin = () => {
+	const navigate = useNavigate();
 	const [formData, setFormData] = useState({
 		email: '',
 		password: ''
@@ -39,10 +38,21 @@ export const ClientLogin = ({ onLogin }: ClientLoginProps) => {
 
 		setErrors(newErrors);
 
-		if (Object.keys(newErrors).length === 0 && onLogin) {
+		if (Object.keys(newErrors).length === 0) {
 			setIsLoading(true);
 			try {
-				await onLogin(formData.email, formData.password);
+				const loginData: LoginData = {
+					email: formData.email,
+					password: formData.password
+				};
+				const result = await Api.LoginClient(loginData);
+
+				if (result.token) {
+					navigate('/cabinet/client');
+				}
+			} catch (error) {
+				const errorMessage = error instanceof Error ? error.message : 'Ошибка входа';
+				setErrors({ submit: errorMessage });
 			} finally {
 				setIsLoading(false);
 			}
@@ -91,6 +101,12 @@ export const ClientLogin = ({ onLogin }: ClientLoginProps) => {
 							<div className="error-message">{errors.password}</div>
 						)}
 					</div>
+
+					{errors.submit && (
+						<div className="error-message" style={{ marginBottom: '1rem' }}>
+							{errors.submit}
+						</div>
+					)}
 
 					<button
 						type="submit"

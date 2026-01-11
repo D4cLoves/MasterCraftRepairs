@@ -6,6 +6,7 @@ import {
 	MasterRegister
 } from '../components/auth';
 import { HomePage } from '../components/HomePage';
+import { ClientCabinet } from '../components/cabinet';
 
 export const AppRoutes = () => {
 	return (
@@ -29,6 +30,10 @@ export const AppRoutes = () => {
 			<Route
 				path="/auth/client/register"
 				element={<ClientRegister />}
+			/>
+			<Route
+				path="/cabinet/client"
+				element={<ClientCabinet />}
 			/>
 		</Routes>
 	);

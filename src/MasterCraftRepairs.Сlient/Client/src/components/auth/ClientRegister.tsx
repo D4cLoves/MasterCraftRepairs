@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { Link, Navigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 import { Api } from '../../lib/api'
-import type { ClientRegisterData } from '../../types/auth'
+import type { ClientRegisterData, LoginData } from '../../types/auth'
 import './Auth.css'
 
 const registerClient = async (userData: ClientRegisterData) => {
@@ -33,6 +33,7 @@ const registerSchema = z
 	})
 
 export const ClientRegister = () => {
+	const navigate = useNavigate();
 	const [formData, setFormData] = useState({
 		firstName: '',
 		lastName: '',
@@ -84,7 +85,27 @@ export const ClientRegister = () => {
 			const result = await registerClient(formData)
 			setRegistrationResult(result)
 			setIsSuccessModalOpen(true)
-			console.log('все гуд', result)
+
+			// Автоматически логиним пользователя после регистрации
+			try {
+				const loginData: LoginData = {
+					email: formData.email,
+					password: formData.password
+				};
+				const loginResult = await Api.LoginClient(loginData);
+
+				if (loginResult.token) {
+					// Закрываем модалку и редиректим через небольшую задержку
+					setTimeout(() => {
+						setIsSuccessModalOpen(false);
+						navigate('/cabinet/client');
+					}, 1500);
+				}
+			} catch (loginError) {
+				// Если автологин не удался, просто закрываем модалку
+				// Пользователь сможет залогиниться вручную
+				console.error('Auto-login failed:', loginError);
+			}
 		} catch (error) {
 			console.error('Registration failed:', error)
 			const errorMessage =
