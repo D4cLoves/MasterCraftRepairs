@@ -140,3 +140,5 @@ Thumbs.db
 *.sqlite3
 appsettings.Development.json
 appsettings.Local.json
+
+.fake

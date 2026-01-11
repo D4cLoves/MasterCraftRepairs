@@ -1,21 +1,16 @@
-import { useState } from 'react'
-import './App.css'
-import { Api } from './lib/api'
+import './App.css';
+import { Navigation } from './components/Navigation';
+import { AppRoutes } from './routes/AppRoutes';
 
 function App() {
-  const [result, SetResult] = useState('');
-  async function test() {
-    const data = await Api.test();
-    const res = JSON.stringify(data);
-    SetResult(res);
-  }
-  return (
-    <>
-      <div>
-        <button type="button" onClick={test}>{result}</button>
-      </div>
-    </>
-  )
+	return (
+		<div className="app-container">
+			<Navigation />
+			<div className="content">
+				<AppRoutes />
+			</div>
+		</div>
+	);
 }
 
-export default App
+export default App;

@@ -1,0 +1,24 @@
+/* iOS Early Era Style - HomePage */
+
+.homepage {
+	min-height: calc(100vh - 60px);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0;
+	background-color: #000000;
+	overflow: hidden;
+}
+
+.homepage-image {
+	width: 100%;
+	height: calc(100vh - 60px);
+	object-fit: cover;
+	object-position: center;
+}
+
+@media (max-width: 768px) {
+	.homepage-image {
+		height: calc(100vh - 60px);
+	}
+}

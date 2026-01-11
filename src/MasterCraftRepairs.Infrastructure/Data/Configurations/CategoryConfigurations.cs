@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace MasterCraftRepairs.Infrastructure.Data.Configurations;
 
-public class CategoryConfigurations : IEntityTypeConfiguration<Category>
+public class CategoryConfigurations : IEntityTypeConfiguration<Category>   
 {
     public void Configure(EntityTypeBuilder<Category> entity)
     {
