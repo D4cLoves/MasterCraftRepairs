@@ -9,9 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Common\Interfaces\MasterRepo\" />
     <Folder Include="Mappings\" />
-    <Folder Include="Services\Master\" />
   </ItemGroup>
 
   <PropertyGroup>

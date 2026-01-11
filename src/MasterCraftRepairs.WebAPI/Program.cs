@@ -1,9 +1,11 @@
 using MasterCraftRepairs.Application.Common.Interfaces;
+using MasterCraftRepairs.Application.Common.Interfaces.MasterRepo;
 using MasterCraftRepairs.Application.Services;
 using MasterCraftRepairs.Infrastructure;
 using MasterCraftRepairs.Infrastructure.Data;
 using MasterCraftRepairs.Infrastructure.Identity;
 using MasterCraftRepairs.Infrastructure.Repositories;
+using MasterCraftRepairs.Infrastructure.Repositories.Master;
 using MasterCraftRepairs.WebAPI.Extensions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -56,6 +58,10 @@ builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<IIdentityClientService, IdentityClientService>();
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
 builder.Services.AddScoped<IJwtProvider, JwtProvider>();
+
+builder.Services.AddScoped<IIdentityMasterService, IdentityMasterService>();
+builder.Services.AddScoped<IMasterRepository, MasterRepository>();
+builder.Services.AddScoped<IMasterService, MasterService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
