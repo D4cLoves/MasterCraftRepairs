@@ -7,6 +7,7 @@ import {
 } from '../components/auth';
 import { HomePage } from '../components/HomePage';
 import { ClientCabinet } from '../components/cabinet';
+import { ClientProfile } from '../components/profile/ClientProfile';
 
 export const AppRoutes = () => {
 	return (
@@ -35,6 +36,12 @@ export const AppRoutes = () => {
 				path="/cabinet/client"
 				element={<ClientCabinet />}
 			/>
+			<Route
+				path="/profile/client"
+				element={<ClientProfile />}
+			/>
+			// TODO: Profile
+			// useRestrictedProfileTypeUpdates
 		</Routes>
 	);
 };

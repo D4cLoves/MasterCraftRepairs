@@ -9,5 +9,6 @@ namespace MasterCraftRepairs.Application.Common.Interfaces
     public interface IClientRepository
     {
         Task AddClientAsync(Client client);
+        Task<Client?> GetClientByIdAsync(Guid id);
     }
 }

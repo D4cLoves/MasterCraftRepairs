@@ -22,5 +22,10 @@ namespace MasterCraftRepairs.Infrastructure.Repositories
             _context.Clients.Add(client);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<Client?> GetClientByIdAsync(Guid id)
+        {
+            return await _context.Clients.FindAsync(id);
+        }
     }
 }

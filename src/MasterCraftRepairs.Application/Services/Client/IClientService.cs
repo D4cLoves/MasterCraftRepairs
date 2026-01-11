@@ -11,5 +11,6 @@ namespace MasterCraftRepairs.Application.Services
     {
         Task<OperationResults> RegisterClientAsync(RegisterClientRequestDto request);
         Task<OperationResults> LoginClientAsync(LoginUserDto request);
+        Task<ClientProfileDto?> GetProfileAsync(Guid clientId);
     }
 }

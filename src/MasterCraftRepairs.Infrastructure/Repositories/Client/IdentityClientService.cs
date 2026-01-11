@@ -88,5 +88,12 @@ namespace MasterCraftRepairs.Infrastructure.Repositories
 
             return new OperationResults { Succeeded = true, Token = token };
         }
+
+        public async Task<string> FindByIdAsyncUserEmail(string clientId)
+        {
+            var user = await _userManager.FindByIdAsync(clientId);
+            string email = user.Email;
+            return email;
+        }
     }
 }

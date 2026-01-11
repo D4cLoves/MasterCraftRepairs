@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using MasterCraftRepairs.Application.DTOs;
 using MasterCraftRepairs.Application.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MasterCraftRepairs.WebAPI.Controllers.Authorization
@@ -19,7 +22,7 @@ namespace MasterCraftRepairs.WebAPI.Controllers.Authorization
             _clientService = clientService;
         }
 
-        [HttpPost("register")]        
+        [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterClientRequestDto request)
         {
             if (request == null)
@@ -55,15 +58,65 @@ namespace MasterCraftRepairs.WebAPI.Controllers.Authorization
             }
 
             var result = await _clientService.LoginClientAsync(request);
-            
+
             if (result.Succeeded)
             {
-                HttpContext.Response.Cookies.Append("ZaxarCrumbleCookie", result.Token);
-                
+                HttpContext.Response.Cookies.Append(
+                    "ZaxarCrumbleCookie",
+                    result.Token,
+                    new CookieOptions
+                    {
+                        HttpOnly = true,
+                        SameSite = SameSiteMode.Lax,
+                        Path = "/",
+                        Expires = DateTimeOffset.UtcNow.AddDays(7),
+                    }
+                );
+
                 return Ok(new { token = result.Token, message = "Вы успешно вошли в аккаунт" });
             }
 
             return BadRequest(new { errors = result.Errors });
+        }
+
+        [Authorize(Roles = "Client")]
+        [HttpGet("profile")]
+        public async Task<IActionResult> GetProfile()
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized(new { error = "Пользователь не авторизован" });
+            }
+
+            if (!Guid.TryParse(userId, out var clientId))
+            {
+                return BadRequest(new { error = "Неверный формат идентификатора пользователя" });
+            }
+
+            var profile = await _clientService.GetProfileAsync(clientId);
+
+            if (profile == null)
+            {
+                return NotFound(new { error = "Профиль клиента не найден" });
+            }
+
+            return Ok(profile);
+        }
+
+        [HttpPost("logout")]
+        public IActionResult Logout()
+        {
+            HttpContext.Response.Cookies.Delete(
+                "ZaxarCrumbleCookie",
+                new CookieOptions
+                {
+                    HttpOnly = true,
+                    SameSite = SameSiteMode.Lax,
+                    Path = "/",
+                }
+            );
+            return Ok(new { message = "Вы успешно вышли из аккаунта" });
         }
     }
 }

@@ -1,40 +1,56 @@
-import './ClientCabinet.css';
+import { Link, useNavigate } from 'react-router-dom'
+import { Api } from '../../lib/api'
+import './ClientCabinet.css'
 
 export const ClientCabinet = () => {
-	const handleCreateRequest = () => {
-		// TODO: Переход на страницу создания обращения
-		console.log('Создание обращения на починку техники');
-	};
+	const navigate = useNavigate()
+
+	const handleLogout = async () => {
+		try {
+			await Api.LogoutClient()
+			navigate('/')
+		} catch (error) {
+			console.error('Ошибка при выходе:', error)
+			navigate('/')
+		}
+	}
 
 	return (
-		<div className="cabinet-container">
-			<div className="cabinet-card">
-				<h2 className="cabinet-title">Личный кабинет клиента</h2>
-
-				<div className="cabinet-section">
-					<div className="cabinet-welcome">
-						<p className="cabinet-greeting">Добро пожаловать!</p>
-						<p className="cabinet-subtitle">Управляйте своими обращениями и отслеживайте статус ремонта</p>
-					</div>
-				</div>
-
-				<div className="cabinet-section">
-					<button
-						onClick={handleCreateRequest}
-						className="cabinet-button cabinet-button-primary"
+		<div className="client-cabinet">
+			<aside className="cabinet-sidebar">
+				<nav className="sidebar-menu">
+					<Link
+						to="/profile/client"
+						className="sidebar-menu-item"
 					>
-						<span className="button-icon">📱</span>
-						Создать обращение на починку техники
+						Профиль
+					</Link>
+					<div className="sidebar-menu-item active">Обращения</div>
+					<button
+						onClick={handleLogout}
+						className="sidebar-menu-item sidebar-logout-btn"
+					>
+						Выход
 					</button>
+					<Link
+						to="/"
+						className="sidebar-menu-item"
+					>
+						Главная
+					</Link>
+				</nav>
+			</aside>
+			<main className="cabinet-content">
+				<div className="content-header">
+					<h1 className="content-title">Обращения</h1>
+					<button className="create-request-btn">Создать обращение</button>
 				</div>
-
-				<div className="cabinet-section">
-					<h3 className="section-title">Мои обращения</h3>
-					<div className="requests-list">
-						<p className="empty-state">У вас пока нет обращений</p>
+				<div className="requests-section">
+					<div className="requests-empty">
+						<p>У вас пока нет обращений</p>
 					</div>
 				</div>
-			</div>
+			</main>
 		</div>
-	);
-};
+	)
+}

@@ -5,6 +5,8 @@ using MasterCraftRepairs.Infrastructure.Data;
 using MasterCraftRepairs.Infrastructure.Identity;
 using MasterCraftRepairs.Infrastructure.Repositories;
 using MasterCraftRepairs.WebAPI.Extensions;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -42,6 +44,12 @@ builder.Services.Configure<JwtOptions>(
     builder.Configuration.GetSection("JwtOptions"));
 
 ApiExtension.AddApiAuthentication(builder.Services, builder.Configuration);
+
+builder.Services.Configure<AuthenticationOptions>(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+});
 
 builder.Services.AddScoped<IClientService, ClientService>();
 

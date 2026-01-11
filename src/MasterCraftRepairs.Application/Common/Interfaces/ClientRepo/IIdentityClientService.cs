@@ -11,5 +11,6 @@ namespace MasterCraftRepairs.Application.Common.Interfaces
     {
         Task<OperationResults> CreateClientAsync(Client client, string password, string email);
         Task<OperationResults> LoginClientAsync(string email, string password);
+        Task<string> FindByIdAsyncUserEmail(string clientId);
     }
 }

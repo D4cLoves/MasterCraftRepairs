@@ -14,7 +14,10 @@ namespace MasterCraftRepairs.Application.Services
         private readonly IIdentityClientService _identityservice;
         private readonly IClientRepository _clientRepository;
 
-        public ClientService(IIdentityClientService identityClientService, IClientRepository clientRepository)
+        public ClientService(
+            IIdentityClientService identityClientService,
+            IClientRepository clientRepository
+        )
         {
             _identityservice = identityClientService;
             _clientRepository = clientRepository;
@@ -148,6 +151,32 @@ namespace MasterCraftRepairs.Application.Services
             var result = await _identityservice.LoginClientAsync(request.Email, request.Password);
 
             return result;
+        }
+
+        public async Task<ClientProfileDto?> GetProfileAsync(Guid clientId)
+        {
+            var client = await _clientRepository.GetClientByIdAsync(clientId);
+
+            if (client == null)
+            {
+                return null;
+            }
+
+            // var user = await _userManager.FindByIdAsync(clientId.ToString());
+            var userEmail = await _identityservice.FindByIdAsyncUserEmail(clientId.ToString());
+            var email = userEmail ?? string.Empty;
+
+            return new ClientProfileDto
+            {
+                Id = client.Id,
+                FirstName = client.Name.FirstName,
+                LastName = client.Name.LastName,
+                Phone = client.Phone.Value,
+                Passport = client.Passport.Value,
+                Address = client.Address.Value,
+                Birthday = client.Birthday,
+                Email = email,
+            };
         }
     }
 }

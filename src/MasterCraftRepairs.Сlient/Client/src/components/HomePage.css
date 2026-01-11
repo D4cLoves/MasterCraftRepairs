@@ -8,6 +8,7 @@
 	padding: 0;
 	background-color: #000000;
 	overflow: hidden;
+	position: relative;
 }
 
 .homepage-image {
@@ -17,8 +18,46 @@
 	object-position: center;
 }
 
+.homepage-cabinet-btn {
+	position: absolute;
+	top: 24px;
+	right: 24px;
+	padding: 10px 20px;
+	background-color: rgba(255, 255, 255, 0.9);
+	color: #1d1d1f;
+	border: none;
+	border-radius: 8px;
+	font-size: 17px;
+	font-weight: 500;
+	font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+	text-decoration: none;
+	cursor: pointer;
+	transition: background-color 0.2s ease, transform 0.1s ease;
+	backdrop-filter: blur(10px);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+	z-index: 10;
+}
+
+.homepage-cabinet-btn:hover {
+	background-color: rgba(255, 255, 255, 1);
+	transform: translateY(-1px);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.homepage-cabinet-btn:active {
+	transform: translateY(0);
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
 @media (max-width: 768px) {
 	.homepage-image {
 		height: calc(100vh - 60px);
+	}
+
+	.homepage-cabinet-btn {
+		top: 16px;
+		right: 16px;
+		padding: 8px 16px;
+		font-size: 15px;
 	}
 }
