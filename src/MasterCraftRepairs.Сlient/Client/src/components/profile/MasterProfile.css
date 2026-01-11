@@ -1,0 +1,121 @@
+/* macOS Light Style - Master Profile */
+
+.master-profile {
+	min-height: calc(100vh - 60px);
+	background-color: #f5f5f7;
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	padding: 60px 20px;
+}
+
+.profile-container {
+	width: 100%;
+	max-width: 700px;
+}
+
+.profile-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 32px;
+}
+
+.profile-title {
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+	font-size: 32px;
+	font-weight: 600;
+	color: #1d1d1f;
+	margin: 0;
+	letter-spacing: -0.5px;
+}
+
+.profile-back-link {
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+	font-size: 17px;
+	color: #0071e3;
+	text-decoration: none;
+	transition: color 0.2s ease;
+}
+
+.profile-back-link:hover {
+	color: #0077ed;
+	text-decoration: underline;
+}
+
+.profile-content {
+	background-color: #ffffff;
+	border-radius: 12px;
+	padding: 24px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.profile-section {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+
+.profile-field {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.profile-label {
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+	font-size: 13px;
+	font-weight: 600;
+	color: #86868b;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+}
+
+.profile-value {
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+	font-size: 17px;
+	font-weight: 400;
+	color: #1d1d1f;
+	line-height: 1.47;
+}
+
+.profile-loading,
+.profile-error {
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+	font-size: 17px;
+	color: #1d1d1f;
+	text-align: center;
+	padding: 40px 20px;
+	background-color: #ffffff;
+	border-radius: 12px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.profile-error {
+	color: #d70015;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+	.master-profile {
+		padding: 40px 16px;
+	}
+
+	.profile-header {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 16px;
+	}
+
+	.profile-title {
+		font-size: 28px;
+	}
+
+	.profile-content {
+		padding: 20px;
+	}
+
+	.profile-section {
+		gap: 20px;
+	}
+}

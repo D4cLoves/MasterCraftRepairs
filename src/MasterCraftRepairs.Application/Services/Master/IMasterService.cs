@@ -1,6 +1,12 @@
-namespace MasterCraftRepairs.Application.Services.Master;
+using MasterCraftRepairs.Application.Common.Results;
+using MasterCraftRepairs.Application.DTOs;
 
-public interface IMasterService
+namespace MasterCraftRepairs.Application.Services
 {
-    
+    public interface IMasterService
+    {
+        Task<OperationResults> RegisterMasterAsync(RegisterMasterRequestDto request);
+        Task<OperationResults> LoginMasterAsync(LoginUserDto request);
+        Task<MasterProfileDto?> GetProfileAsync(Guid masterId);
+    }
 }

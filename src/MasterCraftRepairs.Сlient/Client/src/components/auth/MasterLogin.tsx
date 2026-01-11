@@ -1,54 +1,64 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import './Auth.css';
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { Api } from '../../lib/api'
+import type { LoginData } from '../../types/auth'
+import './Auth.css'
 
-interface MasterLoginProps {
-	onLogin?: (email: string, password: string) => void;
-}
-
-export const MasterLogin = ({ onLogin }: MasterLoginProps) => {
+export const MasterLogin = () => {
+	const navigate = useNavigate()
 	const [formData, setFormData] = useState({
 		email: '',
 		password: ''
-	});
-	const [errors, setErrors] = useState<Record<string, string>>({});
-	const [isLoading, setIsLoading] = useState(false);
+	})
+	const [errors, setErrors] = useState<Record<string, string>>({})
+	const [isLoading, setIsLoading] = useState(false)
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const { name, value } = e.target;
-		setFormData(prev => ({ ...prev, [name]: value }));
-		// Clear error when user starts typing
+		const { name, value } = e.target
+		setFormData(prev => ({ ...prev, [name]: value }))
 		if (errors[name]) {
-			setErrors(prev => ({ ...prev, [name]: '' }));
+			setErrors(prev => ({ ...prev, [name]: '' }))
 		}
-	};
+	}
 
 	const handleSubmit = async (e: React.FormEvent) => {
-		e.preventDefault();
+		e.preventDefault()
 
-		const newErrors: Record<string, string> = {};
+		const newErrors: Record<string, string> = {}
 
 		if (!formData.email.trim()) {
-			newErrors.email = 'Email обязателен для заполнения';
+			newErrors.email = 'Email обязателен для заполнения'
 		} else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-			newErrors.email = 'Введите корректный email';
+			newErrors.email = 'Введите корректный email'
 		}
 
 		if (!formData.password) {
-			newErrors.password = 'Пароль обязателен для заполнения';
+			newErrors.password = 'Пароль обязателен для заполнения'
 		}
 
-		setErrors(newErrors);
+		setErrors(newErrors)
 
-		if (Object.keys(newErrors).length === 0 && onLogin) {
-			setIsLoading(true);
+		if (Object.keys(newErrors).length === 0) {
+			setIsLoading(true)
 			try {
-				await onLogin(formData.email, formData.password);
+				const loginData: LoginData = {
+					email: formData.email,
+					password: formData.password
+				}
+				const result = await Api.LoginMaster(loginData)
+
+				if (result.token) {
+					navigate('/cabinet/master')
+				}
+			} catch (error) {
+				const errorMessage =
+					error instanceof Error ? error.message : 'Ошибка входа'
+				setErrors({ submit: errorMessage })
 			} finally {
-				setIsLoading(false);
+				setIsLoading(false)
 			}
 		}
-	};
+	}
 
 	return (
 		<div className="auth-container">
@@ -93,6 +103,15 @@ export const MasterLogin = ({ onLogin }: MasterLoginProps) => {
 						)}
 					</div>
 
+					{errors.submit && (
+						<div
+							className="error-message"
+							style={{ marginBottom: '1rem' }}
+						>
+							{errors.submit}
+						</div>
+					)}
+
 					<button
 						type="submit"
 						className={`auth-button ${isLoading ? 'loading' : ''}`}
@@ -113,5 +132,5 @@ export const MasterLogin = ({ onLogin }: MasterLoginProps) => {
 				</div>
 			</div>
 		</div>
-	);
-};
+	)
+}

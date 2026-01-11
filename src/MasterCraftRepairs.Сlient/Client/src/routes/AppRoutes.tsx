@@ -6,8 +6,9 @@ import {
 	MasterRegister
 } from '../components/auth';
 import { HomePage } from '../components/HomePage';
-import { ClientCabinet } from '../components/cabinet';
+import { ClientCabinet, MasterCabinet } from '../components/cabinet';
 import { ClientProfile } from '../components/profile/ClientProfile';
+import { MasterProfile } from '../components/profile/MasterProfile';
 
 export const AppRoutes = () => {
 	return (
@@ -37,11 +38,17 @@ export const AppRoutes = () => {
 				element={<ClientCabinet />}
 			/>
 			<Route
+				path="/cabinet/master"
+				element={<MasterCabinet />}
+			/>
+			<Route
 				path="/profile/client"
 				element={<ClientProfile />}
 			/>
-			// TODO: Profile
-			// useRestrictedProfileTypeUpdates
+			<Route
+				path="/profile/master"
+				element={<MasterProfile />}
+			/>
 		</Routes>
 	);
 };

@@ -85,5 +85,84 @@ export const Api = {
 			throw new Error(errorMessage)
 		}
 		return response.json()
+	},
+
+
+
+	AuthorizationMaster: async (userData: MasterRegisterData) => {
+		const response = await fetch('http://localhost:5073/api/Master/register', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(userData),
+			credentials: 'include'
+		})
+		if (!response.ok) {
+			const errorData = await response
+				.json()
+				.catch(() => ({ errors: ['Неизвестная ошибка'] }))
+			const errorMessage =
+				errorData.errors?.join(', ') ||
+				errorData.message ||
+				'Ошибка регистрации'
+			throw new Error(errorMessage)
+		}
+		return response.json()
+	},
+	LoginMaster: async (loginData: LoginData) => {
+		const response = await fetch('http://localhost:5073/api/Master/login', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(loginData),
+			credentials: 'include'
+		})
+		if (!response.ok) {
+			const errorData = await response
+				.json()
+				.catch(() => ({ errors: ['Неизвестная ошибка'] }))
+			const errorMessage =
+				errorData.errors?.join(', ') || errorData.message || 'Ошибка входа'
+			throw new Error(errorMessage)
+		}
+		return response.json()
+	},
+	GetMasterProfile: async () => {
+		const response = await fetch('http://localhost:5073/api/Master/profile', {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			credentials: 'include'
+		})
+		if (!response.ok) {
+			const errorData = await response
+				.json()
+				.catch(() => ({ errors: ['Неизвестная ошибка'] }))
+			const errorMessage =
+				errorData.errors?.join(', ') || errorData.message || 'Ошибка загрузки профиля'
+			throw new Error(errorMessage)
+		}
+		return response.json()
+	},
+	LogoutMaster: async () => {
+		const response = await fetch('http://localhost:5073/api/Master/logout', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			credentials: 'include'
+		})
+		if (!response.ok) {
+			const errorData = await response
+				.json()
+				.catch(() => ({ errors: ['Неизвестная ошибка'] }))
+			const errorMessage =
+				errorData.errors?.join(', ') || errorData.message || 'Ошибка выхода'
+			throw new Error(errorMessage)
+		}
+		return response.json()
 	}
 }
