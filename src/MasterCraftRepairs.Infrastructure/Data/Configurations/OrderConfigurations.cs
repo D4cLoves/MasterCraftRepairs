@@ -18,7 +18,7 @@ public class OrderConfigurations : IEntityTypeConfiguration<Order>
             .HasValue<CancelledOrder>("Cancelled");
 
         entity.Property(e => e.ProductId).IsRequired();
-        entity.Property(e => e.MasterId).IsRequired();
+        entity.Property(e => e.MasterId);
         entity.Property(e => e.ClientId).IsRequired();
 
         entity.OwnsOne(o => o.Price, price =>
@@ -26,6 +26,14 @@ public class OrderConfigurations : IEntityTypeConfiguration<Order>
             price.Property(m => m.Amount)
                 .HasColumnName("Price")
                 .HasColumnType("decimal(18,2)")
+                .IsRequired();
+        });
+
+        entity.OwnsOne(o => o.DescriptionOrder, description =>
+        {
+            description.Property(d => d.Value)
+                .HasColumnName("Description")
+                .HasMaxLength(1000)
                 .IsRequired();
         });
 
