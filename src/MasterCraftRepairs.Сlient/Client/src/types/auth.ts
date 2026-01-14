@@ -23,4 +23,5 @@ export interface MasterRegisterData {
 	birthday: string
 	email: string
 	password: string
+	confirmPassword: string
 }

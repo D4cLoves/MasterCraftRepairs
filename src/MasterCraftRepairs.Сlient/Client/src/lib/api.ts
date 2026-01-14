@@ -1,6 +1,6 @@
 // const API_URL = 'https://localhost:5073/';
 
-import type { ClientRegisterData, LoginData } from '../types/auth'
+import type { ClientRegisterData, LoginData, MasterRegisterData } from '../types/auth'
 
 export const Api = {
 	test: async () => {
@@ -23,10 +23,10 @@ export const Api = {
 			const errorData = await response
 				.json()
 				.catch(() => ({ errors: ['Неизвестная ошибка'] }))
-			const errorMessage =
-				errorData.errors?.join(', ') ||
-				errorData.message ||
-				'Ошибка регистрации'
+			const errorMessage = 
+    Array.isArray(errorData.errors) ? errorData.errors.join(', ') :
+    typeof errorData.errors === 'string' ? errorData.errors :
+    errorData.message || 'Ошибка регистрации'
 			throw new Error(errorMessage)
 		}
 		return response.json()
@@ -44,8 +44,10 @@ export const Api = {
 			const errorData = await response
 				.json()
 				.catch(() => ({ errors: ['Неизвестная ошибка'] }))
-			const errorMessage =
-				errorData.errors?.join(', ') || errorData.message || 'Ошибка входа'
+			const errorMessage = 
+    Array.isArray(errorData.errors) ? errorData.errors.join(', ') :
+    typeof errorData.errors === 'string' ? errorData.errors :
+    errorData.message || 'Ошибка регистрации'
 			throw new Error(errorMessage)
 		}
 		return response.json()
@@ -80,8 +82,10 @@ export const Api = {
 			const errorData = await response
 				.json()
 				.catch(() => ({ errors: ['Неизвестная ошибка'] }))
-			const errorMessage =
-				errorData.errors?.join(', ') || errorData.message || 'Ошибка выхода'
+			const errorMessage = 
+    Array.isArray(errorData.errors) ? errorData.errors.join(', ') :
+    typeof errorData.errors === 'string' ? errorData.errors :
+    errorData.message || 'Ошибка регистрации'
 			throw new Error(errorMessage)
 		}
 		return response.json()
@@ -102,10 +106,10 @@ export const Api = {
 			const errorData = await response
 				.json()
 				.catch(() => ({ errors: ['Неизвестная ошибка'] }))
-			const errorMessage =
-				errorData.errors?.join(', ') ||
-				errorData.message ||
-				'Ошибка регистрации'
+			const errorMessage = 
+    Array.isArray(errorData.errors) ? errorData.errors.join(', ') :
+    typeof errorData.errors === 'string' ? errorData.errors :
+    errorData.message || 'Ошибка регистрации'
 			throw new Error(errorMessage)
 		}
 		return response.json()
@@ -123,8 +127,10 @@ export const Api = {
 			const errorData = await response
 				.json()
 				.catch(() => ({ errors: ['Неизвестная ошибка'] }))
-			const errorMessage =
-				errorData.errors?.join(', ') || errorData.message || 'Ошибка входа'
+			const errorMessage = 
+    Array.isArray(errorData.errors) ? errorData.errors.join(', ') :
+    typeof errorData.errors === 'string' ? errorData.errors :
+    errorData.message || 'Ошибка регистрации'
 			throw new Error(errorMessage)
 		}
 		return response.json()
@@ -141,8 +147,10 @@ export const Api = {
 			const errorData = await response
 				.json()
 				.catch(() => ({ errors: ['Неизвестная ошибка'] }))
-			const errorMessage =
-				errorData.errors?.join(', ') || errorData.message || 'Ошибка загрузки профиля'
+			const errorMessage = 
+    Array.isArray(errorData.errors) ? errorData.errors.join(', ') :
+    typeof errorData.errors === 'string' ? errorData.errors :
+    errorData.message || 'Ошибка регистрации'
 			throw new Error(errorMessage)
 		}
 		return response.json()
@@ -159,8 +167,10 @@ export const Api = {
 			const errorData = await response
 				.json()
 				.catch(() => ({ errors: ['Неизвестная ошибка'] }))
-			const errorMessage =
-				errorData.errors?.join(', ') || errorData.message || 'Ошибка выхода'
+			const errorMessage = 
+    Array.isArray(errorData.errors) ? errorData.errors.join(', ') :
+    typeof errorData.errors === 'string' ? errorData.errors :
+    errorData.message || 'Ошибка регистрации'
 			throw new Error(errorMessage)
 		}
 		return response.json()

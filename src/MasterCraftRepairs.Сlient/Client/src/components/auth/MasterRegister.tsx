@@ -87,7 +87,8 @@ export const MasterRegister = () => {
 				passport: formData.passport,
 				birthday: formData.birthday,
 				email: formData.email,
-				password: formData.password
+				password: formData.password,
+				confirmPassword: formData.confirmPassword
 			}
 			const result = await registerMaster(registerData)
 			setRegistrationResult(result)
