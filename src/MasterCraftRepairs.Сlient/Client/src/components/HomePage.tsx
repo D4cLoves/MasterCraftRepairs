@@ -21,15 +21,21 @@ export const HomePage = () => {
 					Вернуться в кабинет
 				</Link>
 			)}
-			<img
-				src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%2Fid%2FOIP.1yBzEO-ft3WMRXLGpUAozAHaE7%3Fpid%3DApi&f=1&ipt=1dee10e077932650df7abf2fd3dda07509c3bbb8dea13dcb270ea483c8dea7db&ipo=images"
-				alt="Anime character"
-				className="homepage-image"
-				onError={e => {
-					e.currentTarget.src =
-						'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=1200&q=80'
-				}}
-			/>
+			<div className="homepage-hero">
+				<h1 className="homepage-title">MasterCraft Repairs</h1>
+				<p className="homepage-subtitle">
+					Профессиональный ремонт техники с гарантией качества
+				</p>
+				<img
+					src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%2Fid%2FOIP.1yBzEO-ft3WMRXLGpUAozAHaE7%3Fpid%3DApi&f=1&ipt=1dee10e077932650df7abf2fd3dda07509c3bbb8dea13dcb270ea483c8dea7db&ipo=images"
+					alt="Service illustration"
+					className="homepage-image"
+					onError={e => {
+						e.currentTarget.src =
+							'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=1200&q=80'
+					}}
+				/>
+			</div>
 		</div>
 	)
 }

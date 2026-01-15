@@ -24,7 +24,7 @@ public class MasterController : ControllerBase
         {
             return BadRequest(new { errors = new[] { "Тело запроса не может быть пустым" } });
         }
-        
+
         if (!ModelState.IsValid)
         {
             var modelErrors = ModelState
@@ -35,12 +35,12 @@ public class MasterController : ControllerBase
         }
 
         var result = await _masterService.RegisterMasterAsync(request);
-        
+
         if (result.Succeeded)
         {
             return Ok(new { message = "Ьастер успешно зарегистрирован" });
         }
-        
+
         return BadRequest(new { errors = result.Errors });
     }
 
@@ -53,7 +53,7 @@ public class MasterController : ControllerBase
         }
 
         var result = await _masterService.LoginMasterAsync(request);
-        
+
         if (result.Succeeded)
         {
             HttpContext.Response.Cookies.Append(
@@ -70,10 +70,10 @@ public class MasterController : ControllerBase
 
             return Ok(new { token = result.Token, message = "Вы успешно вошли в аккаунт" });
         }
-        
+
         return BadRequest(new { errors = result.Errors });
     }
-    
+
     [Authorize(Roles = "Master")]
     [HttpGet("profile")]
     public async Task<IActionResult> GetProfile()
@@ -98,7 +98,36 @@ public class MasterController : ControllerBase
 
         return Ok(profile);
     }
-    
+
+    [Authorize(Roles = "Master")]
+    [HttpPatch("profile")]
+    public async Task<IActionResult> UpdateProfile([FromBody] UpdateMasterProfileDto request)
+    {
+        if (request == null)
+        {
+            return BadRequest(new { errors = new[] { "Тело запроса не может быть пустым" } });
+        }
+
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (string.IsNullOrEmpty(userId))
+        {
+            return Unauthorized(new { error = "Пользователь не авторизован" });
+        }
+
+        if (!Guid.TryParse(userId, out var masterId))
+        {
+            return BadRequest(new { error = "Неверный формат идентификатора пользователя" });
+        }
+
+        var result = await _masterService.UpdateProfileAsync(masterId, request);
+        if (result.Succeeded)
+        {
+            return Ok(new { message = "Профиль обновлен" });
+        }
+
+        return BadRequest(new { errors = result.Errors });
+    }
+
     [HttpPost("logout")]
     public IActionResult Logout()
     {

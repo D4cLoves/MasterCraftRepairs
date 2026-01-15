@@ -25,3 +25,13 @@ export interface MasterRegisterData {
 	password: string
 	confirmPassword: string
 }
+
+export interface OrderData {
+	categoryId: string
+	serialNumber: string
+	releaseYear: string
+	brand: string
+	model: string
+	price: string;
+	description: string;
+}

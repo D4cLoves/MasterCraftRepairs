@@ -3,12 +3,14 @@ import {
 	ClientLogin,
 	ClientRegister,
 	MasterLogin,
-	MasterRegister
+	MasterRegister,
+	AdminLogin
 } from '../components/auth';
 import { HomePage } from '../components/HomePage';
 import { ClientCabinet, MasterCabinet } from '../components/cabinet';
 import { ClientProfile } from '../components/profile/ClientProfile';
 import { MasterProfile } from '../components/profile/MasterProfile';
+import { AdminPanel } from '../components/admin';
 
 export const AppRoutes = () => {
 	return (
@@ -34,6 +36,10 @@ export const AppRoutes = () => {
 				element={<ClientRegister />}
 			/>
 			<Route
+				path="/auth/admin/login"
+				element={<AdminLogin />}
+			/>
+			<Route
 				path="/cabinet/client"
 				element={<ClientCabinet />}
 			/>
@@ -48,6 +54,10 @@ export const AppRoutes = () => {
 			<Route
 				path="/profile/master"
 				element={<MasterProfile />}
+			/>
+			<Route
+				path="/admin"
+				element={<AdminPanel />}
 			/>
 		</Routes>
 	);

@@ -1,6 +1,8 @@
 using MasterCraftRepairs.Application.Common.Interfaces;
 using MasterCraftRepairs.Application.Common.Interfaces.MasterRepo;
 using MasterCraftRepairs.Application.Services;
+using MasterCraftRepairs.Application.Services.Admin;
+using MasterCraftRepairs.Application.Services.Other;
 using MasterCraftRepairs.Infrastructure;
 using MasterCraftRepairs.Infrastructure.Data;
 using MasterCraftRepairs.Infrastructure.Identity;
@@ -63,6 +65,12 @@ builder.Services.AddScoped<IIdentityMasterService, IdentityMasterService>();
 builder.Services.AddScoped<IMasterRepository, MasterRepository>();
 builder.Services.AddScoped<IMasterService, MasterService>();
 
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IOrderRepo, OrderRepo>();
+builder.Services.AddScoped<IProductRepo, ProductRepo>();
+builder.Services.AddScoped<ICategoriesRepo, CategoriesRepo>();
+builder.Services.AddScoped<IAdminService, MasterCraftRepairs.Infrastructure.Services.Admin.AdminService>();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -86,13 +94,46 @@ using (var scope = app.Services.CreateScope())
     dbcontext.Database.Migrate();
 
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-    var roles = new[] { "Client", "Master" };
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+
+    var roles = new[] { "Client", "Master", "Admin" };
 
     foreach (var role in roles)
     {
         if (!await roleManager.RoleExistsAsync(role))
         {
             await roleManager.CreateAsync(new IdentityRole(role));
+        }
+    }
+
+    // Создаем зашитого админа
+    const string adminEmail = "admin@admin.com";
+    const string adminPassword = "admin123";
+
+    var adminUser = await userManager.FindByEmailAsync(adminEmail);
+    if (adminUser == null)
+    {
+        adminUser = new ApplicationUser
+        {
+            Id = Guid.NewGuid().ToString(),
+            UserName = adminEmail,
+            Email = adminEmail,
+            EmailConfirmed = true
+        };
+
+        var createResult = await userManager.CreateAsync(adminUser, adminPassword);
+        if (createResult.Succeeded)
+        {
+            await userManager.AddToRoleAsync(adminUser, "Admin");
+        }
+    }
+    else
+    {
+        // Убеждаемся, что админ имеет роль Admin
+        var userRoles = await userManager.GetRolesAsync(adminUser);
+        if (!userRoles.Contains("Admin"))
+        {
+            await userManager.AddToRoleAsync(adminUser, "Admin");
         }
     }
 }
