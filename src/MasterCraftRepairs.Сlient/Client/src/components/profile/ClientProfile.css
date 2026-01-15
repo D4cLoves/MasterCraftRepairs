@@ -1,121 +1,184 @@
-/* macOS Light Style - Client Profile */
+/* Modern Glassmorphism Client Profile */
 
 .client-profile {
-	min-height: calc(100vh - 60px);
-	background-color: #f5f5f7;
+	min-height: calc(100vh - 80px);
+	background: transparent;
 	display: flex;
 	align-items: flex-start;
 	justify-content: center;
-	padding: 60px 20px;
+	padding: 2rem;
+	position: relative;
 }
 
 .profile-container {
 	width: 100%;
-	max-width: 700px;
+	max-width: 800px;
 }
 
 .profile-header {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	margin-bottom: 32px;
+	margin-bottom: 2rem;
+	flex-wrap: wrap;
+	gap: 1rem;
 }
 
 .profile-title {
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-	font-size: 32px;
-	font-weight: 600;
-	color: #1d1d1f;
+	font-family: 'Inter', sans-serif;
+	font-size: 2.5rem;
+	font-weight: 700;
 	margin: 0;
-	letter-spacing: -0.5px;
+	letter-spacing: -0.02em;
+	color: var(--text-primary);
 }
 
 .profile-back-link {
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-	font-size: 17px;
-	color: #0071e3;
+	font-family: 'Inter', sans-serif;
+	font-size: 15px;
+	font-weight: 500;
+	color: var(--text-secondary);
 	text-decoration: none;
-	transition: color 0.2s ease;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 10px 18px;
+	background: var(--bg-elev-1);
+	backdrop-filter: blur(10px);
+	border: 1px solid var(--border-color);
+	border-radius: 10px;
 }
 
 .profile-back-link:hover {
-	color: #0077ed;
-	text-decoration: underline;
+	color: var(--text-primary);
+	background: var(--bg-elev-2);
+	border-color: var(--border-hover);
+	transform: translateX(-4px);
 }
 
 .profile-content {
-	background-color: #ffffff;
-	border-radius: 12px;
-	padding: 24px;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+	background: var(--bg-glass);
+	backdrop-filter: blur(30px);
+	border: 1px solid var(--border-color);
+	border-radius: 24px;
+	padding: 2.5rem;
+	box-shadow: var(--shadow-lg);
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.profile-content:hover {
+	border-color: var(--border-hover);
+	box-shadow: var(--shadow-lg);
 }
 
 .profile-section {
-	display: flex;
-	flex-direction: column;
-	gap: 24px;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+	gap: 2rem;
 }
 
 .profile-field {
 	display: flex;
 	flex-direction: column;
-	gap: 8px;
+	gap: 0.75rem;
 }
 
 .profile-label {
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-	font-size: 13px;
+	font-family: 'Inter', sans-serif;
+	font-size: 12px;
 	font-weight: 600;
-	color: #86868b;
+	color: var(--text-muted);
 	text-transform: uppercase;
-	letter-spacing: 0.5px;
+	letter-spacing: 0.05em;
 }
 
 .profile-value {
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-	font-size: 17px;
-	font-weight: 400;
-	color: #1d1d1f;
-	line-height: 1.47;
+	font-family: 'Inter', sans-serif;
+	font-size: 16px;
+	font-weight: 500;
+	color: var(--text-primary);
+	line-height: 1.5;
+	padding: 12px 16px;
+	background: var(--bg-glass);
+	backdrop-filter: blur(10px);
+	border: 1px solid var(--border-color);
+	border-radius: 12px;
+	transition: all 0.3s ease;
+}
+
+.profile-value:hover {
+	border-color: var(--border-hover);
+	background: var(--bg-glass-hover);
 }
 
 .profile-loading,
 .profile-error {
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-	font-size: 17px;
-	color: #1d1d1f;
+	font-family: 'Inter', sans-serif;
+	font-size: 16px;
+	color: var(--text-secondary);
 	text-align: center;
-	padding: 40px 20px;
-	background-color: #ffffff;
-	border-radius: 12px;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+	padding: 3rem 2rem;
+	background: var(--bg-glass);
+	backdrop-filter: blur(20px);
+	border: 1px solid var(--border-color);
+	border-radius: 20px;
+	box-shadow: var(--shadow-md);
 }
 
 .profile-error {
-	color: #d70015;
+	color: #ff6b6b;
+	background: rgba(255, 107, 107, 0.05);
+	border-color: rgba(255, 107, 107, 0.2);
 }
 
 /* Responsive */
 @media (max-width: 768px) {
 	.client-profile {
-		padding: 40px 16px;
+		padding: 1.5rem;
 	}
 
 	.profile-header {
 		flex-direction: column;
 		align-items: flex-start;
-		gap: 16px;
+		margin-bottom: 1.5rem;
 	}
 
 	.profile-title {
-		font-size: 28px;
+		font-size: 2rem;
 	}
 
 	.profile-content {
-		padding: 20px;
+		padding: 2rem;
+		border-radius: 20px;
 	}
 
 	.profile-section {
-		gap: 20px;
+		grid-template-columns: 1fr;
+		gap: 1.5rem;
+	}
+}
+
+@media (max-width: 480px) {
+	.client-profile {
+		padding: 1rem;
+	}
+
+	.profile-title {
+		font-size: 1.75rem;
+	}
+
+	.profile-content {
+		padding: 1.5rem;
+		border-radius: 16px;
+	}
+
+	.profile-section {
+		gap: 1.25rem;
+	}
+
+	.profile-back-link {
+		width: 100%;
+		justify-content: center;
 	}
 }

@@ -10,5 +10,8 @@ namespace MasterCraftRepairs.Application.Common.Interfaces
     {
         Task AddClientAsync(Client client);
         Task<Client?> GetClientByIdAsync(Guid id);
+        Task<IEnumerable<Client>> GetAllClientsAsync();
+        Task UpdateClientAsync(Client client);
+        Task DeleteClientAsync(Guid id);
     }
 }

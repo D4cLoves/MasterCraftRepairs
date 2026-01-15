@@ -40,6 +40,11 @@ public abstract class Order
         DescriptionOrder = descriptionOrder;
     }
 
+    public void UpdateDescription(string description)
+    {
+        DescriptionOrder = new Description(description);
+    }
+
     public abstract Order PutIntoWork(Guid masterId);
     public abstract Order Complete(DateTime endDate);
     public abstract Order Cancel();
@@ -49,7 +54,7 @@ public class NewOrder : Order
 {
     private NewOrder() { } // For EF Core
 
-    internal NewOrder(
+    public NewOrder(
         Guid productId,
         Guid? masterId,
         Guid clientId,

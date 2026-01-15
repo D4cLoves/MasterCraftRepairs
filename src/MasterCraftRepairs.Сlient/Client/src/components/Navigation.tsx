@@ -35,6 +35,14 @@ export const Navigation = () => {
 					>
 						Регистрация клиента
 					</Link>
+					<Link
+						to="/auth/admin/login"
+						className={`nav-link ${
+							isActive('/auth/admin/login') ? 'active' : ''
+						}`}
+					>
+						Вход администратора
+					</Link>
 				</div>
 			</div>
 		</nav>

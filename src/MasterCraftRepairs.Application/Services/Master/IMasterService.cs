@@ -8,5 +8,6 @@ namespace MasterCraftRepairs.Application.Services
         Task<OperationResults> RegisterMasterAsync(RegisterMasterRequestDto request);
         Task<OperationResults> LoginMasterAsync(LoginUserDto request);
         Task<MasterProfileDto?> GetProfileAsync(Guid masterId);
+        Task<OperationResults> UpdateProfileAsync(Guid masterId, UpdateMasterProfileDto request);
     }
 }

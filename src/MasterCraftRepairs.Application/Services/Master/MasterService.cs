@@ -175,5 +175,38 @@ namespace MasterCraftRepairs.Application.Services
                 Email = email,
             };
         }
+
+        public async Task<OperationResults> UpdateProfileAsync(Guid masterId, UpdateMasterProfileDto request)
+        {
+            var master = await _Repository.GetMasterByIdAsync(masterId);
+            if (master == null)
+            {
+                return new OperationResults
+                {
+                    Succeeded = false,
+                    Errors = new List<string> { "Профиль мастера не найден" },
+                };
+            }
+
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(request.Phone))
+                    master.UpdatePhone(request.Phone);
+
+                if (!string.IsNullOrWhiteSpace(request.Passport))
+                    master.UpdatePassport(request.Passport);
+            }
+            catch (ArgumentException ex)
+            {
+                return new OperationResults
+                {
+                    Succeeded = false,
+                    Errors = new List<string> { ex.Message },
+                };
+            }
+
+            await _Repository.UpdateMasterAsync(master);
+            return new OperationResults { Succeeded = true };
+        }
     }
 }

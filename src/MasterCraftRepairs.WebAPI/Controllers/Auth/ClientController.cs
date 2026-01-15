@@ -104,6 +104,35 @@ namespace MasterCraftRepairs.WebAPI.Controllers.Authorization
             return Ok(profile);
         }
 
+        [Authorize(Roles = "Client")]
+        [HttpPatch("profile")]
+        public async Task<IActionResult> UpdateProfile([FromBody] UpdateClientProfileDto request)
+        {
+            if (request == null)
+            {
+                return BadRequest(new { errors = new[] { "Тело запроса не может быть пустым" } });
+            }
+
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized(new { error = "Пользователь не авторизован" });
+            }
+
+            if (!Guid.TryParse(userId, out var clientId))
+            {
+                return BadRequest(new { error = "Неверный формат идентификатора пользователя" });
+            }
+
+            var result = await _clientService.UpdateProfileAsync(clientId, request);
+            if (result.Succeeded)
+            {
+                return Ok(new { message = "Профиль обновлен" });
+            }
+
+            return BadRequest(new { errors = result.Errors });
+        }
+
         [HttpPost("logout")]
         public IActionResult Logout()
         {
