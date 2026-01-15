@@ -1,0 +1,213 @@
+.admin-panel {
+	padding: 2rem;
+	max-width: 1400px;
+	margin: 0 auto;
+	color: var(--text-primary);
+}
+
+.admin-header {
+	margin-bottom: 2rem;
+}
+
+.admin-header h1 {
+	font-size: 2.5rem;
+	font-weight: 700;
+	color: var(--text-primary);
+}
+
+.admin-tabs {
+	display: flex;
+	gap: 1rem;
+	margin-bottom: 2rem;
+	border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.admin-tabs button {
+	padding: 0.75rem 1.5rem;
+	background: transparent;
+	border: none;
+	border-bottom: 2px solid transparent;
+	color: var(--text-secondary);
+	cursor: pointer;
+	font-size: 1rem;
+	transition: all 0.3s ease;
+}
+
+.admin-tabs button:hover {
+	color: var(--text-primary);
+}
+
+.admin-tabs button.active {
+	color: var(--accent-primary);
+	border-bottom-color: var(--accent-primary);
+}
+
+.admin-content {
+	background: rgba(255, 255, 255, 0.02);
+	border-radius: 16px;
+	padding: 2rem;
+	backdrop-filter: blur(10px);
+	border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.admin-section {
+	width: 100%;
+}
+
+.admin-create-btn {
+	padding: 0.75rem 1.5rem;
+	background: var(--accent-primary);
+	color: #ffffff;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	font-weight: 600;
+	margin-bottom: 1.5rem;
+	transition: all 0.3s ease;
+}
+
+.admin-create-btn:hover {
+	background: var(--accent-hover);
+	transform: translateY(-2px);
+}
+
+.admin-table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.admin-table thead {
+	background: rgba(255, 255, 255, 0.05);
+}
+
+.admin-table th {
+	padding: 1rem;
+	text-align: left;
+	font-weight: 600;
+	color: var(--text-primary);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.admin-table td {
+	padding: 1rem;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+	color: var(--text-secondary);
+}
+
+.admin-table tbody tr:hover {
+	background: rgba(255, 255, 255, 0.02);
+}
+
+.admin-table button {
+	padding: 0.5rem 1rem;
+	margin-right: 0.5rem;
+	background: rgba(255, 255, 255, 0.1);
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	border-radius: 6px;
+	color: var(--text-primary);
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+
+.admin-table button:hover {
+	background: rgba(255, 255, 255, 0.15);
+}
+
+.admin-loading,
+.admin-error {
+	padding: 1rem;
+	text-align: center;
+	border-radius: 8px;
+	margin-bottom: 1rem;
+}
+
+.admin-loading {
+	background: rgba(59, 130, 246, 0.1);
+	color: #3b82f6;
+}
+
+.admin-error {
+	background: rgba(239, 68, 68, 0.1);
+	color: #ef4444;
+}
+
+.admin-modal-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, 0.8);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 1000;
+	backdrop-filter: blur(5px);
+}
+
+.admin-modal {
+	background: var(--bg-secondary);
+	border-radius: 16px;
+	padding: 2rem;
+	min-width: 400px;
+	max-width: 500px;
+	border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.admin-modal h2 {
+	margin-bottom: 1.5rem;
+	color: var(--text-primary);
+}
+
+.admin-modal form {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+.admin-modal input {
+	padding: 0.75rem;
+	background: rgba(255, 255, 255, 0.05);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	border-radius: 8px;
+	color: var(--text-primary);
+	font-size: 1rem;
+}
+
+.admin-modal input:focus {
+	outline: none;
+	border-color: var(--accent-primary);
+}
+
+.admin-modal-actions {
+	display: flex;
+	gap: 1rem;
+	margin-top: 1rem;
+}
+
+.admin-modal-actions button {
+	padding: 0.75rem 1.5rem;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	font-weight: 600;
+	transition: all 0.3s ease;
+}
+
+.admin-modal-actions button[type="submit"] {
+	background: var(--accent-primary);
+	color: #ffffff;
+}
+
+.admin-modal-actions button[type="submit"]:hover {
+	background: var(--accent-hover);
+}
+
+.admin-modal-actions button[type="button"] {
+	background: rgba(255, 255, 255, 0.1);
+	color: var(--text-primary);
+}
+
+.admin-modal-actions button[type="button"]:hover {
+	background: rgba(255, 255, 255, 0.15);
+}
